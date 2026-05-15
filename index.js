@@ -53,3 +53,36 @@ async function RandomPokemon() {
         console.error(error);
     }
 }
+
+async function tableofpokemon() {
+    try {
+        const response = await fetch("https://pokeapi.co/api/v2/pokemon/?limit=100");
+        if (!response.ok) {
+            throw new Error("Could not fetch resource");
+        }
+        const data = await response.json();
+
+        const pokemonDetails = await Promise.all(data.results.map(async pokemon => {
+            const pokemonResponse = await fetch(pokemon.url);
+            if (!pokemonResponse.ok) {
+                throw new Error(`Could not fetch details for ${pokemon.name}`);
+            }
+            return pokemonResponse.json();
+        }));
+
+        const tableBody = document.getElementById("pokemonTableBody");
+        tableBody.innerHTML = "";
+
+        pokemonDetails.forEach(pokemon => {
+            const row = document.createElement("tr");
+            row.innerHTML = `
+                <td>${pokemon.name}</td>
+                <td>${pokemon.id}</td>
+                <td><img src="${pokemon.sprites.front_default || ''}" alt="${pokemon.name}" width="80"></td>
+            `;
+            tableBody.appendChild(row);
+        });
+    } catch (error) {
+        console.error(error);
+    }
+}
