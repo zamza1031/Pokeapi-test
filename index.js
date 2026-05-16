@@ -79,7 +79,7 @@ async function tableofpokemon() {
                 <td>${pokemon.name}</td>
                 <td>${pokemon.id}</td>
                 <td><img src="${pokemon.sprites.front_default || ''}" alt="${pokemon.name}" width="80"></td>
-            `;
+                `;
             tableBody.appendChild(row);
         });
     } catch (error) {
