@@ -10,10 +10,7 @@ async function FetchData() {
         const PokemonSprite = data.sprites.front_default;
         const imgElement = document.getElementById("PokemonSprite");
         const PokemonNameElement = document.getElementById("PokemonNameElement");
-        const PokemonDescription = document.getElementById("PokemonDescription");
-
         PokemonNameElement.textContent = `Name: ${data.name}`;
-        PokemonDescription.textContent = `Description: ${data.description}`;
         const PokemonID = document.getElementById("PokemonID");
         PokemonID.textContent = `ID: ${data.id}`;
         imgElement.src = PokemonSprite;
